@@ -1,51 +1,45 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Geolocation Example</title>
-  </head>
-  <body>
-    <button id="btn">位置情報を取得</button>
-    <div id="info">
-      <p>緯度: <span id="latitude"></span></p>
-      <p>経度: <span id="longitude"></span></p>
-      <p>高度: <span id="altitude"></span></p>
-      <p>精度: <span id="accuracy"></span></p>
-      <p>高度の精度: <span id="altitudeAccuracy"></span></p>
-      <p>方角: <span id="heading"></span></p>
-      <p>速度: <span id="speed"></span></p>
-    </div>
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+var num = 0;
+var watch_id;
 
-    <script>
-      document.getElementById("btn").onclick = function () {
-        navigator.geolocation.getCurrentPosition(
-          successCallback,
-          errorCallback
-        );
-      };
+function test() {
+    watch_id = navigator.geolocation.watchPosition(test2, function(e) { alert(e.message); }, {"enableHighAccuracy": true, "timeout": 20000, "maximumAge": 2000});
+}
 
-      function successCallback(position) {
-        document.getElementById("latitude").innerHTML =
-          position.coords.latitude;
-        document.getElementById("longitude").innerHTML =
-          position.coords.longitude;
-        document.getElementById("altitude").innerHTML =
-          position.coords.altitude !== null ? position.coords.altitude : "N/A";
-        document.getElementById("accuracy").innerHTML =
-          position.coords.accuracy;
-        document.getElementById("altitudeAccuracy").innerHTML =
-          position.coords.altitudeAccuracy !== null
-            ? position.coords.altitudeAccuracy
-            : "N/A";
-        document.getElementById("heading").innerHTML =
-          position.coords.heading !== null ? position.coords.heading : "N/A";
-        document.getElementById("speed").innerHTML =
-          position.coords.speed !== null ? position.coords.speed : "N/A";
-      }
+function clear() {
+    navigator.geolocation.clearWatch(watch_id);
+}
 
-      function errorCallback(error) {
-        alert("位置情報が取得できませんでした: " + error.message);
-      }
-    </script>
-  </body>
+function test2(position) {
+
+    var geo_text = "緯度:" + position.coords.latitude + "\n";
+    geo_text += "経度:" + position.coords.longitude + "\n";
+    geo_text += "高度:" + position.coords.altitude + "\n";
+    geo_text += "位置精度:" + position.coords.accuracy + "\n";
+    geo_text += "高度精度:" + position.coords.altitudeAccuracy  + "\n";
+    geo_text += "移動方向:" + position.coords.heading + "\n";
+    geo_text += "速度:" + position.coords.speed + "\n";
+
+    var date = new Date(position.timestamp);
+
+    geo_text += "取得時刻:" + date.toLocaleString() + "\n";
+    geo_text += "取得回数:" + (++num) + "\n";
+
+    document.getElementById('position_view').innerHTML = geo_text;
+
+}
+</script>
+</head>
+<body>
+
+<button onclick="test()">test</button>
+<button onclick="clear()">clear</button>
+
+<pre id="position_view"></pre>
+
+</body>
 </html>
