@@ -1,7 +1,7 @@
 // ボタンを押した時の処理
 document.getElementById("btn").onclick = function () {
   // 位置情報を取得する
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback,test2);
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 };
 
 // 取得に成功した場合の処理
@@ -15,6 +15,7 @@ function successCallback(position) {
   // 高度を取得し画面に表示
   var altitude = position.coords.altitude;
   document.getElementById("altitude").innerHTML = altitude;
+  test2;
 }
 
 // 取得に失敗した場合の処理
