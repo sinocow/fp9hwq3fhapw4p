@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <title>Geolocation Sample</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
+    <title>Geolocation Example</title>
   </head>
   <body>
-    <div class="center">
-      <div class="btn-margin">
-        <button id="btn" class="btn btn-outline-primary btn-lg">
-          現在位置を取得する
-        </button>
-      </div>
-      <div class="txt-margin">
-        <p>緯度：<span id="latitude">???</span><span>度</span></p>
-        <p>経度：<span id="longitude">???</span><span>度</span></p>
-        <p>高度：<span id="altitude">???</span><span>メートル</span></p>
-      </div>
+    <button id="btn">位置情報を取得</button>
+    <div id="info">
+      <p>緯度: <span id="latitude"></span></p>
+      <p>経度: <span id="longitude"></span></p>
+      <p>高度: <span id="altitude"></span></p>
+      <p>精度: <span id="accuracy"></span></p>
+      <p>高度の精度: <span id="altitudeAccuracy"></span></p>
+      <p>方角: <span id="heading"></span></p>
+      <p>速度: <span id="speed"></span></p>
     </div>
-    <script src="geolocation.js"></script>
+
+    <script>
+      document.getElementById("btn").onclick = function () {
+        navigator.geolocation.getCurrentPosition(
+          successCallback,
+          errorCallback
+        );
+      };
+
+      function successCallback(position) {
+        document.getElementById("latitude").innerHTML =
+          position.coords.latitude;
+        document.getElementById("longitude").innerHTML =
+          position.coords.longitude;
+        document.getElementById("altitude").innerHTML =
+          position.coords.altitude !== null ? position.coords.altitude : "N/A";
+        document.getElementById("accuracy").innerHTML =
+          position.coords.accuracy;
+        document.getElementById("altitudeAccuracy").innerHTML =
+          position.coords.altitudeAccuracy !== null
+            ? position.coords.altitudeAccuracy
+            : "N/A";
+        document.getElementById("heading").innerHTML =
+          position.coords.heading !== null ? position.coords.heading : "N/A";
+        document.getElementById("speed").innerHTML =
+          position.coords.speed !== null ? position.coords.speed : "N/A";
+      }
+
+      function errorCallback(error) {
+        alert("位置情報が取得できませんでした: " + error.message);
+      }
+    </script>
   </body>
 </html>
