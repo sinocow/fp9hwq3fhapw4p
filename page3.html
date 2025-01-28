@@ -7,16 +7,20 @@
   <body>
     <h1>ローカルストレージに値を書き込むページ</h1>
     <button onclick="openCushionPage()">クッションページを開く</button>
+    <p id="message"></p>
     <script>
       function openCushionPage() {
-        window.open("page4.html", "_blank");
+        const newWindow = window.open("page4.html", "_blank");
+        const checkInterval = setInterval(() => {
+          if (newWindow.closed) {
+            clearInterval(checkInterval);
+            const value = localStorage.getItem("testKey");
+            document.getElementById("message").textContent = value
+              ? `ローカルストレージの値: ${value}`
+              : "ローカルストレージに値がありません";
+          }
+        }, 500);
       }
-
-      window.addEventListener("storage", function (event) {
-        if (event.key === "testKey" && event.newValue === "testValue") {
-          alert("ローカルストレージに値が書き込まれました");
-        }
-      });
     </script>
   </body>
 </html>
