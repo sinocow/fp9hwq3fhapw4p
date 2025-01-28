@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>プライベートモードチェック</title>
+    <script>
+      function isPrivateMode() {
+        if (localStorage.length === 0) {
+          try {
+            localStorage.setItem(
+              "isLocalStorageAvailable",
+              "That is being tested!"
+            );
+            localStorage.removeItem("isLocalStorageAvailable");
+            return false;
+          } catch (e) {
+            return true;
+          }
+        }
+      }
+
+      window.onload = function () {
+        const result = isPrivateMode();
+        document.getElementById("result").textContent = result
+          ? "プライベートモードです"
+          : "プライベートモードではありません";
+      };
+    </script>
+  </head>
+  <body>
+    <h1>プライベートモードチェック</h1>
+    <p id="result">チェック中...</p>
+  </body>
+</html>
