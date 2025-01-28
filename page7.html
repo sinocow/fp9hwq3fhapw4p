@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ローカルストレージに値を書き込む</title>
+  </head>
+  <body>
+    <h1>ローカルストレージに値を書き込むページ</h1>
+    <button onclick="writeToLocalStorage()">
+      ローカルストレージに値を書き込む
+    </button>
+    <script>
+      function writeToLocalStorage() {
+        localStorage.setItem("testKey", "testValue");
+        window.open("page2.html", "_new");
+      }
+    </script>
+  </body>
+</html>
