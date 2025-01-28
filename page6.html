@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ローカルストレージを参照する</title>
+  </head>
+  <body>
+    <h1>ローカルストレージを参照するページ</h1>
+    <p id="storageValue">ローカルストレージの値を読み込んでいます...</p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const value = localStorage.getItem("testKey");
+        document.getElementById("storageValue").textContent = value
+          ? `ローカルストレージの値: ${value}`
+          : "ローカルストレージに値がありません";
+      });
+    </script>
+  </body>
+</html>
