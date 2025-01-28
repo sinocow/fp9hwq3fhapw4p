@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Private Browsing Detection</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var isPrivate = false;
+        var db;
+        try {
+          db = indexedDB.open("test");
+          db.onerror = function () {
+            isPrivate = true;
+            alert("You're in private browsing mode");
+          };
+          db.onsuccess = function () {
+            alert("You aren't in private browsing mode");
+          };
+        } catch (e) {
+          isPrivate = true;
+          alert("You're in private browsing mode");
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Private Browsing Detection</h1>
+  </body>
+</html>
