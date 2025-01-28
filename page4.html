@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>クッションページ</title>
+  </head>
+  <body>
+    <h1>クッションページ</h1>
+    <p>ローカルストレージに値を書き込んでいます...</p>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        localStorage.setItem("testKey", "testValue");
+        setTimeout(() => {
+          window.close(); // クッションページを閉じる
+        }, 2000); // 2秒後にクッションページを閉じる
+      });
+    </script>
+  </body>
+</html>

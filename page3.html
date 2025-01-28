@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ローカルストレージに値を書き込む</title>
+  </head>
+  <body>
+    <h1>ローカルストレージに値を書き込むページ</h1>
+    <button onclick="openCushionPage()">クッションページを開く</button>
+    <script>
+      function openCushionPage() {
+        window.open("page4.html", "_blank");
+      }
+
+      window.addEventListener("storage", function (event) {
+        if (event.key === "testKey" && event.newValue === "testValue") {
+          alert("ローカルストレージに値が書き込まれました");
+        }
+      });
+    </script>
+  </body>
+</html>
