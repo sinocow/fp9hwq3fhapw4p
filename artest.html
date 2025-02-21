@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AbsoluteOrientationSensor Test</title>
+  </head>
+  <body>
+    <h1>AbsoluteOrientationSensor Test</h1>
+    <div id="sensorData">Loading...</div>
+
+    <script>
+      if ("AbsoluteOrientationSensor" in window) {
+        const sensor = new AbsoluteOrientationSensor({ frequency: 60 });
+
+        sensor.addEventListener("reading", () => {
+          const quaternion = sensor.quaternion;
+          document.getElementById(
+            "sensorData"
+          ).innerText = `Quaternion: [${quaternion[0].toFixed(
+            2
+          )}, ${quaternion[1].toFixed(2)}, ${quaternion[2].toFixed(
+            2
+          )}, ${quaternion[3].toFixed(2)}]`;
+        });
+
+        sensor.addEventListener("error", (event) => {
+          document.getElementById(
+            "sensorData"
+          ).innerText = `Error: ${event.error.name}`;
+        });
+
+        sensor.start();
+      } else {
+        document.getElementById("sensorData").innerText =
+          "AbsoluteOrientationSensor is not supported by your browser.";
+      }
+    </script>
+  </body>
+</html>
